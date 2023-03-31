@@ -1,56 +1,93 @@
-instructores2503816 = {}
+class Persona:
+    def __init__(self):
+        self.__tipoDoc = ""
+        self.__documento = ""
+        self.__nombre = ""
+        self.__apellido = ""
+        self.__peso = 0.0
+        self.__estatura = 0.0
+        self.__edad = 0
+        self.__sexo = ""
 
-while True:
-    print("\n=== MENU ===")
-    print("1. Agregar/modificar instructor")
-    print("2. Buscar instructor")
-    print("3. Borrar instructor")
-    print("4. Listar instructores")
-    print("5. Salir")
-    opcion = input("Ingrese una opción (1-5): ")
+    def get_tipoDoc(self):
+        return self.__tipoDoc
 
-    if opcion == "1":
-        nombre = input("Ingrese el nombre del instructor: ")
-        if nombre in instructores2503816:
-            print(f"El instructor {nombre} ya está registrado.")
-            print(f"Materia: {instructores2503816[nombre]['materia']}")
-            telefono = input("Ingrese el nuevo número de teléfono (o enter para dejarlo sin cambios): ")
-            if telefono != "":
-                instructores2503816[nombre]['telefono'] = telefono
+    def set_tipoDoc(self, tipoDoc):
+        self.__tipoDoc = tipoDoc
+    
+    def get_documento(self):
+        return self.__documento
+
+    def set_documento(self, documento):
+        self.__documento = documento
+        
+    def get_nombre(self):
+        return self.__nombre
+
+    def set_nombre(self, nombre):
+        self.__nombre = nombre
+        
+    def get_apellido(self):
+        return self.__apellido
+
+    def set_apellido(self, apellido):
+        self.__apellido = apellido
+        
+    def get_peso(self):
+        return self.__peso
+
+    def set_peso(self, peso):
+        self.__peso = peso
+        
+    def get_estatura(self):
+        return self.__estatura
+
+    def set_estatura(self, estatura):
+        self.__estatura = estatura
+        
+    def get_edad(self):
+        return self.__edad
+
+    def set_edad(self, edad):
+        self.__edad = edad
+        
+    def get_sexo(self):
+        return self.__sexo
+
+    def set_sexo(self, sexo):
+        self.__sexo = sexo  
+
+    def pedirDatos(self):
+        self.set_tipoDoc(input("Ingrese Tipo de documento: "))
+        self.set_documento(input("Ingrese Número de documento: "))
+        self.set_nombre(input("Ingrese Nombre de la persona: "))
+        self.set_apellido(input("Ingrese Apellido de la persona: "))
+        self.set_peso(float(input("Ingrese Peso de la persona en kg: ")))
+        self.set_estatura(float(input("Ingrese Estatura de la persona en mts: ")))
+        self.set_edad(int(input("Ingrese la edad de la persona: ")))
+        self.set_sexo(input("Escoja el Sexo de la persona (M/F): ").upper())
+
+    def mostrarPersona(self):
+        print("Tipo de documento:", self.get_tipoDoc(), "\n"
+              "Número de documento:", self.get_documento(), "\n"
+              "Nombre:", self.get_nombre(), "\n"
+              "Apellido:", self.get_apellido(), "\n"
+              "Peso:", self.get_peso(), "\n"
+              "Estatura:", self.get_estatura(), "\n"
+              "Edad:", self.get_edad(), "\n"
+              "Sexo:", self.get_sexo(), "\n")
+        
+    def calcularImc(self):
+        pesoActual = self.get_peso() / (self.get_estatura() ** 2)
+        if pesoActual < 20:
+            print("El peso de la persona está por debajo de lo ideal")
+        elif pesoActual >= 20 and pesoActual <= 25:
+            print("El peso de la persona es ideal")
         else:
-            materia = input("Ingrese la materia que dicta: ")
-            telefono = input("Ingrese el número de teléfono: ")
-            instructores2503816[nombre] = {'materia': materia, 'telefono': telefono}
-            print(f"El instructor {nombre} ha sido registrado.")
+            print("La persona tiene sobrepeso")
 
-    elif opcion == "2":
-        busqueda = input("Ingrese un texto de búsqueda: ")
-        resultados = []
-        for nombre, datos in instructores2503816.items():
-            if nombre.startswith(busqueda):
-                resultados.append(nombre)
-        print("Resultados de la búsqueda:")
-        for nombre in resultados:
-            print(f"Nombre: {nombre} - Materia: {instructores2503816[nombre]['materia']} - Teléfono: {instructores2503816[nombre]['telefono']}")
-
-    elif opcion == "3":
-        nombre = input("Ingrese el nombre del instructor a borrar: ")
-        if nombre in instructores2503816:
-            confirmacion = input(f"¿Está seguro que desea borrar al instructor {nombre}? (s/n): ")
-            if confirmacion.lower() == "s":
-                del instructores2503816[nombre]
-                print(f"El instructor {nombre} ha sido borrado.")
+    def mayorEdad(self):
+        if self.get_edad() >= 18:
+            print("La persona es mayor de edad")
         else:
-            print(f"No se encontró al instructor {nombre} en la agenda.")
-
-    elif opcion == "4":
-        print("\nInstructores registrados:")
-        for nombre, datos in instructores2503816.items():
-            print(f"Nombre: {nombre} - Materia: {datos['materia']} - Teléfono: {datos['telefono']}")
-
-    elif opcion == "5":
-        print("¡Hasta luego!")
-        break
-
-    else:
-        print("Opción inválida.")
+            print("La persona es menor de edad")
